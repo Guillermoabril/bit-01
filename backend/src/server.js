@@ -1,17 +1,26 @@
-const express = require('express')
-const morgan = require('morgan')
+const express = require('express');
+const morgan = require('morgan');
+const userRouter = require('./routers/usersRouter')
 
-const server = express()
-const port = 4000
+const server = express();
+const port = 4000;
 
-server.use(morgan('dev'))
+server.set('port', port);
 
+server.use(morgan('dev'));
+server.use(express.json())
+
+server.use('/users/', userRouter)
 server.get('/', (request, response) => {
-    response.send('works!!')
-})
+  response.json({message: 'works!!'});
+});
 
-server.listen(port, () => {
-    console.log(`server running on port ${port}`);
-})
+
+// users
+
+
+
+
+
 
 module.exports = server;
